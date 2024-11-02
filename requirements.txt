@@ -1,0 +1,33 @@
+# its the main
+apache-airflow==2.9.3
+
+# Database Providers
+apache-airflow-providers-postgres
+apache-airflow-providers-snowflake
+apache-airflow-providers-amazon
+apache-airflow-providers-google
+
+# Cloud Provider SDKs
+google-cloud-bigquery
+google-cloud-storage
+boto3
+snowflake-connector-python
+snowflake-sqlalchemy
+
+# Data Processing
+numpy
+polars # Replacing with Polars for faster data processing
+
+# Database Connectors
+psycopg2-binary
+
+# Other Utils
+pytz
+requests
+redis
+streamlit
+pillow
+python-dotenv
+
+# Optional but recommended
+sqlalchemy  # SQL toolkit, compatible with Airflow 2.9+

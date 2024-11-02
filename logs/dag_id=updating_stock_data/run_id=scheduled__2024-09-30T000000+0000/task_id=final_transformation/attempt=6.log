@@ -1,0 +1,34 @@
+[2024-11-01T15:17:12.773+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: updating_stock_data.final_transformation scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:17:12.797+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: updating_stock_data.final_transformation scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:17:12.799+0000] {taskinstance.py:2193} INFO - Starting attempt 6 of 7
+[2024-11-01T15:17:12.844+0000] {taskinstance.py:2217} INFO - Executing <Task(_PythonDecoratedOperator): final_transformation> on 2024-09-30 00:00:00+00:00
+[2024-11-01T15:17:12.858+0000] {standard_task_runner.py:60} INFO - Started process 3738 to run task
+[2024-11-01T15:17:12.870+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'updating_stock_data', 'final_transformation', 'scheduled__2024-09-30T00:00:00+00:00', '--job-id', '214', '--raw', '--subdir', 'DAGS_FOLDER/polars_postgres.py', '--cfg-path', '/tmp/tmph57e6rxa']
+[2024-11-01T15:17:12.874+0000] {standard_task_runner.py:88} INFO - Job 214: Subtask final_transformation
+[2024-11-01T15:17:13.065+0000] {task_command.py:423} INFO - Running <TaskInstance: updating_stock_data.final_transformation scheduled__2024-09-30T00:00:00+00:00 [running]> on host 07e6c451f8a5
+[2024-11-01T15:17:13.215+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow_development' AIRFLOW_CTX_DAG_ID='updating_stock_data' AIRFLOW_CTX_TASK_ID='final_transformation' AIRFLOW_CTX_EXECUTION_DATE='2024-09-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='6' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-09-30T00:00:00+00:00'
+[2024-11-01T15:17:13.220+0000] {taskinstance.py:2731} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 241, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/polars_postgres.py", line 114, in final_transformation
+    pl.col('Date').str.strptime(pl.Date, format=='%Y-%m-%d'),
+  File "/home/airflow/.local/lib/python3.8/site-packages/polars/expr/string.py", line 296, in strptime
+    return self.to_date(format, strict=strict, exact=exact, cache=cache)
+  File "/home/airflow/.local/lib/python3.8/site-packages/polars/expr/string.py", line 84, in to_date
+    _validate_format_argument(format)
+  File "/home/airflow/.local/lib/python3.8/site-packages/polars/expr/string.py", line 2785, in _validate_format_argument
+    if format is not None and ".%f" in format:
+TypeError: argument of type 'bool' is not iterable
+[2024-11-01T15:17:13.241+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=updating_stock_data, task_id=final_transformation, execution_date=20240930T000000, start_date=20241101T151712, end_date=20241101T151713
+[2024-11-01T15:17:13.255+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 214 for task final_transformation (argument of type 'bool' is not iterable; 3738)
+[2024-11-01T15:17:13.284+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-11-01T15:17:13.321+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

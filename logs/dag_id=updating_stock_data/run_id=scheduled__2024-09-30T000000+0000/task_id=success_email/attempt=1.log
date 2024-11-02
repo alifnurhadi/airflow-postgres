@@ -1,0 +1,17 @@
+[2024-11-01T15:32:29.909+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: updating_stock_data.success_email scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:32:29.926+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: updating_stock_data.success_email scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:32:29.927+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 1
+[2024-11-01T15:32:29.956+0000] {taskinstance.py:2217} INFO - Executing <Task(EmailOperator): success_email> on 2024-09-30 00:00:00+00:00
+[2024-11-01T15:32:29.963+0000] {standard_task_runner.py:60} INFO - Started process 4328 to run task
+[2024-11-01T15:32:29.967+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'updating_stock_data', 'success_email', 'scheduled__2024-09-30T00:00:00+00:00', '--job-id', '223', '--raw', '--subdir', 'DAGS_FOLDER/polars_postgres.py', '--cfg-path', '/tmp/tmpytfpoi4g']
+[2024-11-01T15:32:29.969+0000] {standard_task_runner.py:88} INFO - Job 223: Subtask success_email
+[2024-11-01T15:32:30.045+0000] {task_command.py:423} INFO - Running <TaskInstance: updating_stock_data.success_email scheduled__2024-09-30T00:00:00+00:00 [running]> on host 07e6c451f8a5
+[2024-11-01T15:32:30.155+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='updating_stock_data' AIRFLOW_CTX_TASK_ID='success_email' AIRFLOW_CTX_EXECUTION_DATE='2024-09-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-09-30T00:00:00+00:00'
+[2024-11-01T15:32:30.171+0000] {warnings.py:109} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/utils/email.py:154: RemovedInAirflow3Warning: Fetching SMTP credentials from configuration variables will be deprecated in a future release. Please set credentials using a connection instead.
+  send_mime_email(e_from=mail_from, e_to=recipients, mime_msg=msg, conn_id=conn_id, dryrun=dryrun)
+
+[2024-11-01T15:32:30.172+0000] {email.py:270} INFO - Email alerting: attempt 1
+[2024-11-01T15:32:32.080+0000] {email.py:281} INFO - Sent an alert email to ['alifnurhadi90@gmail.com', 'clara.data08@gmail.com', 'farrosg@gmail.com', 'intanmuktif@gmail.com', 'joobeboy12@gmail.com']
+[2024-11-01T15:32:35.223+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=updating_stock_data, task_id=success_email, execution_date=20240930T000000, start_date=20241101T153229, end_date=20241101T153235
+[2024-11-01T15:32:35.332+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-11-01T15:32:35.438+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

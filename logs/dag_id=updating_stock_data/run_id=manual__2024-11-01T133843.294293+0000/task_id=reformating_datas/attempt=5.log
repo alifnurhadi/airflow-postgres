@@ -1,0 +1,29 @@
+[2024-11-01T14:08:40.365+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: updating_stock_data.reformating_datas manual__2024-11-01T13:38:43.294293+00:00 [queued]>
+[2024-11-01T14:08:40.384+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: updating_stock_data.reformating_datas manual__2024-11-01T13:38:43.294293+00:00 [queued]>
+[2024-11-01T14:08:40.386+0000] {taskinstance.py:2193} INFO - Starting attempt 5 of 5
+[2024-11-01T14:08:40.415+0000] {taskinstance.py:2217} INFO - Executing <Task(_PythonDecoratedOperator): reformating_datas> on 2024-11-01 13:38:43.294293+00:00
+[2024-11-01T14:08:40.422+0000] {standard_task_runner.py:60} INFO - Started process 1069 to run task
+[2024-11-01T14:08:40.428+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'updating_stock_data', 'reformating_datas', 'manual__2024-11-01T13:38:43.294293+00:00', '--job-id', '168', '--raw', '--subdir', 'DAGS_FOLDER/polars_postgres.py', '--cfg-path', '/tmp/tmpgz096ikk']
+[2024-11-01T14:08:40.429+0000] {standard_task_runner.py:88} INFO - Job 168: Subtask reformating_datas
+[2024-11-01T14:08:40.510+0000] {task_command.py:423} INFO - Running <TaskInstance: updating_stock_data.reformating_datas manual__2024-11-01T13:38:43.294293+00:00 [running]> on host 07e6c451f8a5
+[2024-11-01T14:08:40.655+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow_development' AIRFLOW_CTX_DAG_ID='updating_stock_data' AIRFLOW_CTX_TASK_ID='reformating_datas' AIRFLOW_CTX_EXECUTION_DATE='2024-11-01T13:38:43.294293+00:00' AIRFLOW_CTX_TRY_NUMBER='5' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-11-01T13:38:43.294293+00:00'
+[2024-11-01T14:08:40.657+0000] {logging_mixin.py:188} INFO - Error in data reformatting: No valid data found in the API response.
+[2024-11-01T14:08:40.658+0000] {taskinstance.py:2731} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 241, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/polars_postgres.py", line 52, in reformating_datas
+    raise ValueError("No valid data found in the API response.")
+ValueError: No valid data found in the API response.
+[2024-11-01T14:08:40.675+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=updating_stock_data, task_id=reformating_datas, execution_date=20241101T133843, start_date=20241101T140840, end_date=20241101T140840
+[2024-11-01T14:08:40.695+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 168 for task reformating_datas (No valid data found in the API response.; 1069)
+[2024-11-01T14:08:40.722+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-11-01T14:08:40.762+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check

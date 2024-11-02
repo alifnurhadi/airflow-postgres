@@ -1,0 +1,54 @@
+[2024-11-01T15:08:26.660+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: updating_stock_data.load_to_db scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:08:26.670+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: updating_stock_data.load_to_db scheduled__2024-09-30T00:00:00+00:00 [queued]>
+[2024-11-01T15:08:26.671+0000] {taskinstance.py:2193} INFO - Starting attempt 4 of 4
+[2024-11-01T15:08:26.692+0000] {taskinstance.py:2217} INFO - Executing <Task(_PythonDecoratedOperator): load_to_db> on 2024-09-30 00:00:00+00:00
+[2024-11-01T15:08:26.697+0000] {standard_task_runner.py:60} INFO - Started process 3425 to run task
+[2024-11-01T15:08:26.700+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'updating_stock_data', 'load_to_db', 'scheduled__2024-09-30T00:00:00+00:00', '--job-id', '212', '--raw', '--subdir', 'DAGS_FOLDER/polars_postgres.py', '--cfg-path', '/tmp/tmp2zm_0e9f']
+[2024-11-01T15:08:26.701+0000] {standard_task_runner.py:88} INFO - Job 212: Subtask load_to_db
+[2024-11-01T15:08:26.749+0000] {task_command.py:423} INFO - Running <TaskInstance: updating_stock_data.load_to_db scheduled__2024-09-30T00:00:00+00:00 [running]> on host 07e6c451f8a5
+[2024-11-01T15:08:26.829+0000] {taskinstance.py:2513} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow_development' AIRFLOW_CTX_DAG_ID='updating_stock_data' AIRFLOW_CTX_TASK_ID='load_to_db' AIRFLOW_CTX_EXECUTION_DATE='2024-09-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-09-30T00:00:00+00:00'
+[2024-11-01T15:08:26.831+0000] {logging_mixin.py:188} INFO - postgres urlpostgresql://***:***@postgres:5432/***
+[2024-11-01T15:08:27.265+0000] {logging_mixin.py:188} INFO - Database operation failed: dt.tz is not supported for date32[day][pyarrow]
+[2024-11-01T15:08:27.266+0000] {taskinstance.py:2731} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 241, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/polars_postgres.py", line 149, in load_to_db
+    final.write_database(
+  File "/home/airflow/.local/lib/python3.8/site-packages/polars/dataframe/frame.py", line 4049, in write_database
+    res: int | None = self.to_pandas(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1910, in to_sql
+    table = self.prep_table(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1804, in prep_table
+    table = SQLTable(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 880, in __init__
+    self.table = self._create_table_setup()
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1169, in _create_table_setup
+    column_names_and_types = self._get_column_names_and_types(self._sqlalchemy_type)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1154, in _get_column_names_and_types
+    column_names_and_types += [
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1155, in <listcomp>
+    (str(self.frame.columns[i]), dtype_mapper(self.frame.iloc[:, i]), False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1274, in _sqlalchemy_type
+    if col.dt.tz is not None:
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/accessor.py", line 96, in _getter
+    return self._delegate_property_get(name)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/indexes/accessors.py", line 174, in _delegate_property_get
+    raise NotImplementedError(
+NotImplementedError: dt.tz is not supported for date32[day][pyarrow]
+[2024-11-01T15:08:27.281+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=updating_stock_data, task_id=load_to_db, execution_date=20240930T000000, start_date=20241101T150826, end_date=20241101T150827
+[2024-11-01T15:08:27.296+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 212 for task load_to_db (dt.tz is not supported for date32[day][pyarrow]; 3425)
+[2024-11-01T15:08:27.314+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-11-01T15:08:27.338+0000] {taskinstance.py:3312} INFO - 0 downstream tasks scheduled from follow-on schedule check
