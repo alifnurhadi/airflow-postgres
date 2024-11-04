@@ -2,7 +2,7 @@ version: '3.8'
 
 x-airflow-common:
   &airflow-common
-  image: airflow:dev_config
+  image: airflow:cloud_v2
   env_file:
     - .env.airflow  # Airflow-specific environment variables
   environment:
@@ -99,7 +99,7 @@ services:
       - airflow-network  
 
   airflow-init:
-    image: airflow:dev_config
+    image: airflow:cloud_v2
     container_name: airflow-init
     entrypoint: /bin/bash
     command:
@@ -107,7 +107,7 @@ services:
       - |
         mkdir -p /opt/airflow/{logs,dags,plugins,data}
         chown -R ${AIRFLOW_UID:-50000}:0 /opt/airflow/{logs,dags,plugins,data}
-        pip list && \
+        pip install apache-airflow-providers-celery && \
         airflow db migrate && \
         airflow users create \
           --username airflow \

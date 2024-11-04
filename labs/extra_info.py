@@ -134,22 +134,22 @@
 # <hr>  <!-- Horizontal line -->
 # '''
 
-# '''
-# # Common Airflow template variables:
-# {{ ds }}                    # The execution date as YYYY-MM-DD
-# {{ ds_nodash }}            # The execution date as YYYYMMDD
-# {{ ts }}                   # The execution date with timestamp
-# {{ task_instance.task_id }} # The current task's ID
-# {{ task_instance.dag_id }}  # The DAG's ID
-# {{ task.owner }}           # The task's owner
-# {{ task.email }}           # The task owner's email
-# {{ task_instance.try_number }} # The current retry attempt number
-# {{ task_instance.state }}   # The task's current state
-# {{ dag }}                  # The entire DAG object
-# {{ conf }}                 # The Airflow configuration object
-# {{ macros }}              # Access to various utility macros
-# {{ var.value.some_variable }} # Access Airflow variables
-# '''
+'''
+# Common Airflow template variables:
+{{ ds }}                    # The execution date as YYYY-MM-DD
+{{ ds_nodash }}            # The execution date as YYYYMMDD
+{{ ts }}                   # The execution date with timestamp
+{{ task_instance.task_id }} # The current task's ID
+{{ task_instance.dag_id }}  # The DAG's ID
+{{ task.owner }}           # The task's owner
+{{ task.email }}           # The task owner's email
+{{ task_instance.try_number }} # The current retry attempt number
+{{ task_instance.state }}   # The task's current state
+{{ dag }}                  # The entire DAG object
+{{ conf }}                 # The Airflow configuration object
+{{ macros }}              # Access to various utility macros
+{{ var.value.some_variable }} # Access Airflow variables
+'''
 
 # html = '''<h1> ALERT SOME DAGS HAS FALLEN!!! </h1>
 # <p> today {{ds}} has ben executing regular dag 

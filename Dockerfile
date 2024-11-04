@@ -3,21 +3,15 @@ FROM apache/airflow:slim-2.9.3-python3.11 AS builder
 
 USER root
 
-# Install build dependencies including MySQL
+# Install build dependencies without MySQL
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         python3-dev \
         libpq-dev \
         pkg-config \
-        default-libmysqlclient-dev \
-        python3-mysqldb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Set MySQL flags for compilation
-ENV MYSQLCLIENT_CFLAGS="`pkg-config mysqlclient --cflags`" \
-    MYSQLCLIENT_LDFLAGS="`pkg-config mysqlclient --libs`"
 
 # Create and set permissions for pip cache directory
 RUN mkdir -p /home/airflow/.cache/pip && \
@@ -33,12 +27,8 @@ USER airflow
 # Upgrade pip first as a separate step
 RUN pip install --upgrade pip
 
-# Install MySQL dependencies first
-RUN pip install --no-cache-dir mysqlclient mysql-connector-python
-
-# Install Airflow and provider
-RUN pip install --no-cache-dir apache-airflow==2.9.3 \
-    && pip install --no-cache-dir apache-airflow-providers-mysql==5.7.3
+# Install Airflow and providers without MySQL
+RUN pip install --no-cache-dir apache-airflow==2.9.3
 
 # Copy and install requirements
 COPY --chown=airflow:root requirements.txt /opt/airflow/requirements.txt
@@ -49,11 +39,10 @@ FROM apache/airflow:slim-2.9.3-python3.11
 
 USER root
 
-# Install only runtime dependencies
+# Install only runtime dependencies without MySQL
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libpq5 \
-        default-libmysqlclient-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && find /var/lib/apt/lists /var/cache/apt/archives -type f -delete
@@ -92,5 +81,4 @@ ENV PYTHONPATH=/opt/airflow \
     PYTHONOPTIMIZE=2
 
 # Verify installation
-RUN python -c "import airflow; print(f'Airflow version: {airflow.__version__}')" && \
-    python -c "import MySQLdb; print('MySQL client installed successfully')"
+RUN python -c "import airflow; print(f'Airflow version: {airflow.__version__}')"
