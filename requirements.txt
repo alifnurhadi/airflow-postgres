@@ -6,6 +6,7 @@ apache-airflow-providers-postgres
 apache-airflow-providers-snowflake
 apache-airflow-providers-amazon
 apache-airflow-providers-google
+apache-airflow-providers-celery
 
 # Cloud Provider SDKs
 google-cloud-bigquery
